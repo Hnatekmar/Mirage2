@@ -16,8 +16,8 @@ void expression(QQueue<Token>& tokens, QList<MirageValue>& values);
 /**
   Grammar:
     Program -> Expression Program | EPSILON
-    Expression -> List | atom | ' Expression | ` QuasiExpression
-    QuasiExpression -> ~ atom | ~@ atom | QuasiList | Expression
+    Expression -> List | atom | ' Expression | ` QuasiList
+    QuasiExpression -> ~ Expression | ~@ Expression | Expression
     QuasiList -> ( QuasiValues )
     List -> ( Values )
     Values -> Expression Values | EPSILON
