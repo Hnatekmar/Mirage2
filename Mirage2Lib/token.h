@@ -11,6 +11,7 @@ enum class TokenType {
     quote, // '
     eval, // ~
     unrollEval, // ~@
+    quasiQuote, // `
     eof
 };
 

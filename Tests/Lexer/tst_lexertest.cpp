@@ -13,8 +13,8 @@ private slots:
 
 void LexerTest::basicExpression()
 {
-    QQueue<Token> tokens = lexer("(12 \"test\" +Identifikator5  ~ ~@ ')");
-    QVERIFY(tokens.size() == 9);
+    QQueue<Token> tokens = lexer("(12 \"test\" +Identifikator5  ~ ~@ ' `)");
+    QVERIFY(tokens.size() == 10);
 
     Token token = tokens.first();
     tokens.pop_front();
@@ -69,6 +69,13 @@ void LexerTest::basicExpression()
     token = tokens.first();
     tokens.pop_front();
     cmp.line = 0;
+    cmp.type = TokenType::quasiQuote;
+    cmp.value = QVariant("`");
+    QVERIFY(token == cmp);
+
+    token = tokens.first();
+    tokens.pop_front();
+    cmp.line = 0;
     cmp.type = TokenType::rParen;
     cmp.value = QVariant(')');
     QVERIFY(token == cmp);
@@ -76,7 +83,7 @@ void LexerTest::basicExpression()
     token = tokens.first();
     cmp.line = 0;
     cmp.type = TokenType::eof;
-    cmp.value = QVariant(')');
+    cmp.value = QVariant("");
     QVERIFY(token.type == TokenType::eof);
 }
 

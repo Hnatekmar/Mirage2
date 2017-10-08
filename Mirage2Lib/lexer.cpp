@@ -24,6 +24,7 @@ QQueue<Token> lexer(QString source)
             // [^"0-9()'~]
             if(!current.isSpace() && !current.isDigit() && current != '~'
                && current != '\'' && current != '(' && current != ')'
+               && current != '`'
                 && current != '"') {
                 value += current;
                 state = State::identifier;
@@ -59,6 +60,15 @@ QQueue<Token> lexer(QString source)
                                    value,
                                    lineNumber,
                                    TokenType::quote
+                               });
+                next_char();
+                value = "";
+            } else if (current == '`') {
+                value = current;
+                tokens.enqueue(Token {
+                                   value,
+                                   lineNumber,
+                                   TokenType::quasiQuote
                                });
                 next_char();
                 value = "";
