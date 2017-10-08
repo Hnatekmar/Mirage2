@@ -2,6 +2,8 @@
 #define TOKEN_H
 
 #include <QVariant>
+#include <QDebug>
+
 enum class TokenType {
     identifier, // [^"0-9()'~][^\s]*
     string, // ".*"
@@ -23,5 +25,4 @@ struct Token {
         return value == rhs.value && type == rhs.type;
     }
 };
-
 #endif // TOKEN_H
