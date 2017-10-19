@@ -9,7 +9,7 @@ QT 	 += core
 
 TARGET = Mirage2Lib
 TEMPLATE = lib
-CONFIG += staticlib c++14
+CONFIG += staticlib c++14 qt
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -24,13 +24,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     lexer.cpp \
-    parser.cpp
+    parser.cpp \
+    mirageexception.cpp
 
 HEADERS += \
     token.h \
     lexer.h \
     parser.h \
-    value.h
+    value.h \
+    linkedlist.h \
+    mirageexception.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

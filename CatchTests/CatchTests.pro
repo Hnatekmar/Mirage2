@@ -1,10 +1,12 @@
 TEMPLATE = app
-QT += core
-CONFIG += console c++14
+CONFIG += console c++14 core
 CONFIG -= app_bundle
 CONFIG += qt
 
-SOURCES += main.cpp
+PKGCONFIG += catch
+
+SOURCES += main.cpp \
+    linkedlist.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Mirage2Lib/release/ -lMirage2Lib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Mirage2Lib/debug/ -lMirage2Lib
