@@ -5,6 +5,6 @@
 #include "value.h"
 #include <QVariant>
 
-QList<MirageValue> program(QQueue<Token>& tokens, QList<MirageValue> &values);
+LinkedList<MirageValue> program(QQueue<Token>& tokens, LinkedList<MirageValue> &values);
 
 #endif // PARSER_H

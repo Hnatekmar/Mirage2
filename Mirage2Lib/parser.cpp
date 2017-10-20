@@ -1,6 +1,5 @@
 #include "parser.h"
 #include <QQueue>
-#include <QList>
 #include <iostream>
 #include <QDebug>
 
@@ -11,7 +10,7 @@ QDebug operator<<(QDebug debug, const Token &token) {
    return debug;
 }
 
-void expression(QQueue<Token>& tokens, QList<MirageValue>& values);
+void expression(QQueue<Token>& tokens, LinkedList<MirageValue>& values);
 
 /**
   Grammar:
@@ -34,7 +33,7 @@ void error(const Token& token, const QString& errorMessage) {
     std::exit(1);
 }
 
-void quasiExpression(QQueue<Token>& tokens, QList<MirageValue>& values) {
+void quasiExpression(QQueue<Token>& tokens, LinkedList<MirageValue>& values) {
     Token token = tokens.first();
     if(token.type == TokenType::eval) {
         tokens.pop_front();
@@ -56,8 +55,8 @@ void quasiExpression(QQueue<Token>& tokens, QList<MirageValue>& values) {
     }
 }
 
-void quasiValues(QQueue<Token>& tokens, QList<MirageValue>& values) {
-    QList<MirageValue> listValues;
+void quasiValues(QQueue<Token>& tokens, LinkedList<MirageValue>& values) {
+    LinkedList<MirageValue> listValues;
     Token token;
     do{
         token = tokens.first();
@@ -79,8 +78,8 @@ void quasiValues(QQueue<Token>& tokens, QList<MirageValue>& values) {
                      });
 }
 
-void valuesRule(QQueue<Token>& tokens, QList<MirageValue>& values) {
-    QList<MirageValue> listValues;
+void valuesRule(QQueue<Token>& tokens, LinkedList<MirageValue>& values) {
+    LinkedList<MirageValue> listValues;
     Token token;
     do{
         token = tokens.first();
@@ -99,7 +98,7 @@ void valuesRule(QQueue<Token>& tokens, QList<MirageValue>& values) {
                      });
 }
 
-void quasiList(QQueue<Token>& tokens, QList<MirageValue>& values) {
+void quasiList(QQueue<Token>& tokens, LinkedList<MirageValue>& values) {
     Token token = tokens.first();
     if(token.type == TokenType::lParen) {
         tokens.pop_front();
@@ -119,7 +118,7 @@ void quasiList(QQueue<Token>& tokens, QList<MirageValue>& values) {
     }
 }
 
-void list(QQueue<Token>& tokens, QList<MirageValue>& values) {
+void list(QQueue<Token>& tokens, LinkedList<MirageValue>& values) {
     Token token = tokens.first();
     if(token.type == TokenType::lParen) {
         tokens.pop_front();
@@ -139,7 +138,7 @@ void list(QQueue<Token>& tokens, QList<MirageValue>& values) {
     }
 }
 
-void expression(QQueue<Token>& tokens, QList<MirageValue>& values) {
+void expression(QQueue<Token>& tokens, LinkedList<MirageValue>& values) {
     Q_ASSERT(tokens.size() != 0);
     const Token& token = tokens.first();
     if(token.type == TokenType::lParen) {
@@ -185,7 +184,7 @@ void expression(QQueue<Token>& tokens, QList<MirageValue>& values) {
     }
 }
 
-QList<MirageValue> program(QQueue<Token> &tokens, QList<MirageValue>& values) {
+LinkedList<MirageValue> program(QQueue<Token> &tokens, LinkedList<MirageValue>& values) {
     Q_ASSERT(tokens.size() != 0);
     const Token& token = tokens.first();
     if(isAtom(token) ||

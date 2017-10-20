@@ -27,6 +27,13 @@ public:
         return m_head->value;
     }
 
+    T& last() {
+        if(m_head == nullptr) throw MirageException("Called last on empty list!");
+        Node* it = m_head.get();
+        while(it->next.get() != nullptr) it = it->next.get();
+        return it->value;
+    }
+
     LinkedList<T> rest() {
         LinkedList<T> rest;
         rest.m_head = m_head->next;
