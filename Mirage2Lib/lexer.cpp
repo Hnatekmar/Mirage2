@@ -33,6 +33,13 @@ QQueue<Token> lexer(QString source)
                 value += current;
                 state = State::number;
                 next_char();
+                if(i == source.size()) {
+                    tokens.enqueue(Token{
+                                           value.toLongLong(),
+                                           lineNumber,
+                                           TokenType::number
+                                   });
+                }
             } else if (current == '(') {
                 tokens.enqueue(Token{
                                   {current},
@@ -77,6 +84,13 @@ QQueue<Token> lexer(QString source)
             if(current.isDigit()){
                 value += current;
                 next_char();
+                if(i >= source.size()) {
+                    tokens.enqueue(Token{
+                                           value.toLongLong(),
+                                           lineNumber,
+                                           TokenType::number
+                                   });
+                }
             }
             else {
                 state = State::start;
@@ -98,6 +112,13 @@ QQueue<Token> lexer(QString source)
                 value = "";
             } else {
                 value += current;
+                if(i + 1 >= source.size()) {
+                        tokens.enqueue(Token{
+                                           value,
+                                           lineNumber,
+                                           TokenType::string
+                                       });
+                }
             }
             next_char();
         } else if(state == State::unrollEval) {
@@ -122,6 +143,13 @@ QQueue<Token> lexer(QString source)
             if(!current.isSpace() && current != '\'' && current != '(' && current != ')'
                         && current != '"') {
                 value += current;
+                if(i == source.size()) {
+                        tokens.enqueue(Token {
+                                               value,
+                                               lineNumber,
+                                               TokenType::identifier
+                                       });
+                }
                 next_char();
             } else {
                 state = State::start;

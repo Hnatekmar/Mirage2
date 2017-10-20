@@ -34,6 +34,17 @@ public:
         return it->value;
     }
 
+    template<typename TransformFunction>
+    LinkedList<T> map(TransformFunction transform) {
+        LinkedList<T> mapped;
+        Node* it = m_head.get();
+        while(it != nullptr) {
+            mapped.push_back(transform(it->value));
+            it = it->next.get();
+        }
+        return mapped;
+    }
+
     LinkedList<T> rest() {
         LinkedList<T> rest;
         rest.m_head = m_head->next;

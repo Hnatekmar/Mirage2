@@ -25,7 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     lexer.cpp \
     parser.cpp \
-    mirageexception.cpp
+    mirageexception.cpp \
+    evaluator.cpp \
+    miragefunction.cpp \
+    function.cpp
 
 HEADERS += \
     token.h \
@@ -33,7 +36,10 @@ HEADERS += \
     parser.h \
     value.h \
     linkedlist.h \
-    mirageexception.h
+    mirageexception.h \
+    evaluator.h \
+    miragefunction.h \
+    function.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
